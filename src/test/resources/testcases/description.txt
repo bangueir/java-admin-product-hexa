@@ -1,2 +1,2 @@
-http00.json: Get all models
-http01.json: Delete model by id
+http00.json: Get all products
+http01.json: Negative cases (validation and not found)
