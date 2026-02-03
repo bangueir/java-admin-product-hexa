@@ -1,2 +1,3 @@
 http00.json: Get all products
 http01.json: Negative cases (validation and not found)
+http02.json: Search and reports

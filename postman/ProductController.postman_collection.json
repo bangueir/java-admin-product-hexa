@@ -33,6 +33,80 @@
       }
     },
     {
+      "name": "Search products by title",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/products/search?title=Laptop",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "title",
+              "value": "Laptop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get product with higher value",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/products/report/topvalue",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "products",
+            "report",
+            "topvalue"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Group products by currency",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/products/report/groupcurrency",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "products",
+            "report",
+            "groupcurrency"
+          ]
+        }
+      }
+    },
+    {
       "name": "Get product by id",
       "request": {
         "method": "GET",

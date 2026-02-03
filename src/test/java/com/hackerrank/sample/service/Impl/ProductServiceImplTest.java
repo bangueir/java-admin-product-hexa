@@ -127,6 +127,61 @@ public class ProductServiceImplTest {
 	}
 
 	@Test
+	public void getProductByTitle_returnsMappedList() {
+		when(productRepository.findByTitleLikeIgnoreCase("Laptop"))
+				.thenReturn(List.of(sampleProduct(1L), sampleProduct(2L)));
+
+		List<ProductDto> result = productService.getProductByTitle("Laptop");
+
+		assertEquals(2, result.size());
+		assertEquals(Long.valueOf(1L), result.get(0).getId());
+		assertEquals(Long.valueOf(2L), result.get(1).getId());
+	}
+
+	@Test
+	public void getProductWithHigherValue_returnsMax() {
+		Product low = sampleProduct(1L);
+		low.setPrice(10.0f);
+		Product high = sampleProduct(2L);
+		high.setPrice(99.0f);
+		when(productRepository.findAll()).thenReturn(List.of(low, high));
+
+		ProductDto result = productService.getProductWithHigherValue();
+
+		assertNotNull(result);
+		assertEquals(Long.valueOf(2L), result.getId());
+	}
+
+	@Test
+	public void getProductWithHigherValue_throwsWhenEmpty() {
+		when(productRepository.findAll()).thenReturn(List.of());
+
+		try {
+			productService.getProductWithHigherValue();
+			Assert.fail("Expected NoSuchResourceFoundException");
+		} catch (NoSuchResourceFoundException ex) {
+			assertEquals("No product found.", ex.getMessage());
+		}
+	}
+
+	@Test
+	public void getProductsGroupCurrency_groupsByCurrency() {
+		Product usd = sampleProduct(1L);
+		usd.setCurrencyId(CurrencyTypes.USD);
+		Product cop = sampleProduct(2L);
+		cop.setCurrencyId(CurrencyTypes.COP);
+		Product usd2 = sampleProduct(3L);
+		usd2.setCurrencyId(CurrencyTypes.USD);
+		when(productRepository.findAll()).thenReturn(List.of(usd, cop, usd2));
+
+		var result = productService.getProductsGroupCurrency();
+
+		assertEquals(2, result.size());
+		assertEquals(2, result.get("USD").size());
+		assertEquals(1, result.get("COP").size());
+	}
+
+	@Test
 	public void updateProduct_throwsWhenNull() {
 		try {
 			productService.updateProduct(1L, null);

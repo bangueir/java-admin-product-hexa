@@ -1,7 +1,9 @@
 package com.hackerrank.sample.service.Impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> getProductByTitle(String title) {
+        List<Product> products = productRepository.findByTitleLikeIgnoreCase(title);
+        return products.stream()
+                .map(ProductMapper::toProductDto)
+                .toList();
+    }
+
+    @Override
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
@@ -74,5 +84,33 @@ public class ProductServiceImpl implements ProductService {
         product.setId(id);
         Product savedProduct = productRepository.save(product);
         return ProductMapper.toProductDto(savedProduct);
+    }
+
+    @Override
+    public ProductDto getProductWithHigherValue() {
+
+        List<Product> products = productRepository.findAll();
+
+        Optional<Product> product = products.stream()
+                .max((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()));
+
+        if (product.isEmpty()) {
+            throw new NoSuchResourceFoundException("No product found.");
+        }
+
+        return ProductMapper.toProductDto(product.get());
+    }
+
+    @Override
+    public Map<String, List<ProductDto>> getProductsGroupCurrency() {
+
+        List<Product> products = productRepository.findAll();
+
+        Map<String, List<ProductDto>> groupedProducts = products.stream()
+                .map(ProductMapper::toProductDto)
+                .collect(Collectors.groupingBy(ProductDto::getCurrencyId));
+
+        return groupedProducts;
+        
     }
 }

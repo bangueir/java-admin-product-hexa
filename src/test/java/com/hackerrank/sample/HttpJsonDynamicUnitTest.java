@@ -36,8 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -56,10 +54,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class HttpJsonDynamicUnitTest {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private static final MediaType CONTENT_TYPE_JSON = MediaType.APPLICATION_JSON_UTF8;
-    private static final MediaType CONTENT_TYPE_TEXT = MediaType.TEXT_PLAIN;
-
-    private static HttpMessageConverter mappingJackson2HttpMessageConverter;
+    private static final MediaType CONTENT_TYPE_JSON = MediaType.APPLICATION_JSON;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -69,16 +64,6 @@ public class HttpJsonDynamicUnitTest {
     public void getContext() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         assertNotNull(mockMvc);
-    }
-
-    @Autowired
-    public void setConverters(HttpMessageConverter<?>[] converters) {
-        mappingJackson2HttpMessageConverter = Stream.of(converters)
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
-                .findAny()
-                .orElse(null);
-
-        assertNotNull(mappingJackson2HttpMessageConverter);
     }
 
     List<String> httpJsonFiles = new ArrayList<>();
@@ -124,6 +109,7 @@ public class HttpJsonDynamicUnitTest {
                     .filter(Files::isRegularFile)
                     .map(f -> f.getFileName().toString())
                     .filter(f -> f.endsWith(".json"))
+                    .sorted()
                     .collect(toList());
         } catch (IOException ex) {
             throw new Error(ex.toString());
@@ -208,16 +194,9 @@ public class HttpJsonDynamicUnitTest {
                                 switch (method) {
                                     case "POST":
                                         {
-                                            MediaType contentType = MediaType.ALL;
                                             String type = request.get("headers").get("Content-Type").asText();
 
                                             if (type.equals("application/json")) {
-                                                contentType = CONTENT_TYPE_JSON;
-                                            } else if (type.equals("text/plain")) {
-                                                contentType = CONTENT_TYPE_TEXT;
-                                            }
-
-                                            if (!contentType.equals(MediaType.ALL)) {
                                                 try {
                                                     ResultActions resultActions = mockMvc.perform(post(url)
                                                             .content(body)
@@ -240,16 +219,9 @@ public class HttpJsonDynamicUnitTest {
                                         }
                                     case "PUT":
                                         {
-                                            MediaType contentType = MediaType.ALL;
                                             String type = request.get("headers").get("Content-Type").asText();
 
                                             if (type.equals("application/json")) {
-                                                contentType = CONTENT_TYPE_JSON;
-                                            } else if (type.equals("text/plain")) {
-                                                contentType = CONTENT_TYPE_TEXT;
-                                            }
-
-                                            if (!contentType.equals(MediaType.ALL)) {
                                                 try {
                                                     ResultActions resultActions = mockMvc.perform(put(url)
                                                             .content(body)
@@ -309,8 +281,13 @@ public class HttpJsonDynamicUnitTest {
                                                         if (expectedType.asText().equals("application/json")) {
                                                             JsonNode responseBodyJson = OBJECT_MAPPER.readTree(responseBody);
 
-                                                            validateJsonResponse(filename, method + " " + url,
-                                                                    expectedResponseBodyJson, responseBodyJson);
+                                                            if (expectedResponseBodyJson.isArray()) {
+                                                                validateJsonResponse(filename, method + " " + url,
+                                                                        expectedResponseBodyJson, responseBodyJson);
+                                                            } else {
+                                                                validateJsonObjectResponse(filename, method + " " + url,
+                                                                        expectedResponseBodyJson, responseBodyJson);
+                                                            }
                                                         } else if (expectedType.asText().equals("text/plain")) {
                                                             validateTextResponse(filename, method + " " + url,
                                                                     expectedResponseBodyJson.toString(), responseBody);
@@ -416,6 +393,18 @@ public class HttpJsonDynamicUnitTest {
 
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    private boolean validateJsonObjectResponse(String filename, String testcase, JsonNode expected, JsonNode found) {
+        if (!expected.equals(found)) {
+            String reason = "Response Json object does not match with the expected response";
+            addTestFailure(filename, new Pair(new Pair(testcase, reason),
+                    new Pair(expected.toString(), found.toString())));
+
+            return false;
         }
 
         return true;
