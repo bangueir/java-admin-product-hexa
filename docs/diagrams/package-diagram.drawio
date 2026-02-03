@@ -1,0 +1,163 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.3.7">
+  <diagram id="package-diagram-detailed" name="Diagrama de Paquetes Detallado">
+    <mxGraphModel dx="1234" dy="755" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="main-package" parent="1" style="shape=folder;fontStyle=1;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" value="com.hackerrank.sample" vertex="1">
+          <mxGeometry height="840" width="1560" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="controller-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="controller" vertex="1">
+          <mxGeometry height="180" width="260" x="80" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="controller-class" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="ProductController.java&#xa;@RestController&#xa;@RequestMapping(\&quot;/products\&quot;)&#xa;&#xa;Endpoints:&#xa;• GET /&#xa;• GET /{id}&#xa;• GET /search&#xa;• GET /report/topvalue&#xa;• GET /report/groupcurrency&#xa;• POST /&#xa;• PUT /{id}&#xa;• DELETE /{id}" vertex="1">
+          <mxGeometry height="134" width="240" x="90" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="service-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="service" vertex="1">
+          <mxGeometry height="180" width="240" x="400" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="service-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="ProductService.java&#xa;&lt;&lt;Interface&gt;&gt;&#xa;&#xa;ProductServiceImpl.java&#xa;@Service&#xa;Business logic:&#xa;• CRUD operations&#xa;• Search by title&#xa;• Get highest value&#xa;• Group by currency" vertex="1">
+          <mxGeometry height="134" width="220" x="410" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="repository" vertex="1">
+          <mxGeometry height="180" width="260" x="700" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="ProductRepository.java&lt;br&gt;@Repository&lt;br&gt;extends JpaRepository&lt;br&gt;&lt;br&gt;Custom queries:&lt;br&gt;• findByTitleLikeIgnoreCase()&lt;br&gt;  @Query(JPQL LIKE)&lt;br&gt;&lt;br&gt;Inherited:&lt;br&gt;• findAll(), findById()&lt;br&gt;• save(), deleteById()" vertex="1">
+          <mxGeometry height="134" width="240" x="710" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="model-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="model" vertex="1">
+          <mxGeometry height="180" width="240" x="1020" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="model-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="Product.java&#xa;@Entity&#xa;@Table(name=\&quot;MODEL\&quot;)&#xa;&#xa;Fields:&#xa;• id, title, price&#xa;• currencyId, condition&#xa;• availableQuantity&#xa;• freeShipping&#xa;• description, pictureUrl" vertex="1">
+          <mxGeometry height="134" width="220" x="1030" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="dto-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="dto" vertex="1">
+          <mxGeometry height="200" width="260" x="80" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="dto-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="ProductDto.java&#xa;&#xa;Bean Validation:&#xa;• @NotBlank, @NotNull&#xa;• @Pattern (condition, currency)&#xa;• @Size, @Positive, @Min&#xa;&#xa;Validations:&#xa;• condition: NEW|USED&#xa;• currencyId: COP|ARS|USD|EUR" vertex="1">
+          <mxGeometry height="154" width="240" x="90" y="396" as="geometry" />
+        </mxCell>
+        <mxCell id="mapper-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;" value="mapper" vertex="1">
+          <mxGeometry height="140" width="240" x="400" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="mapper-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="ProductMapper.java&#xa;&#xa;Utility class:&#xa;• toProductDto()&#xa;• toProduct()&#xa;• toProductDtoList()&#xa;&#xa;Converts Entity ↔ DTO" vertex="1">
+          <mxGeometry height="94" width="220" x="410" y="396" as="geometry" />
+        </mxCell>
+        <mxCell id="enums-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#f8cecc;strokeColor=#b85450;" value="enums" vertex="1">
+          <mxGeometry height="140" width="260" x="700" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="enums-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="CurrencyTypes.java&#xa;• COP, ARS, USD, EUR&#xa;&#xa;ProductContiditions.java&#xa;• NEW, USED" vertex="1">
+          <mxGeometry height="94" width="240" x="710" y="396" as="geometry" />
+        </mxCell>
+        <mxCell id="exception-pkg" parent="1" style="shape=folder;fontStyle=1;tabWidth=80;tabHeight=26;tabPosition=left;html=1;boundedLbl=1;fillColor=#f8cecc;strokeColor=#b85450;" value="exception" vertex="1">
+          <mxGeometry height="200" width="240" x="1020" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="exception-files" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=4;" value="NoSuchResourceFoundException&#xa;extends RuntimeException&#xa;HTTP 404&#xa;&#xa;BadResourceRequestException&#xa;extends RuntimeException&#xa;HTTP 400&#xa;&#xa;GlobalExceptionHandler.java&#xa;@RestControllerAdvice&#xa;@ExceptionHandler" vertex="1">
+          <mxGeometry height="154" width="220" x="1030" y="396" as="geometry" />
+        </mxCell>
+        <mxCell id="app-class" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Application.java&#xa;@SpringBootApplication&#xa;main() method" vertex="1">
+          <mxGeometry height="80" width="240" x="1320" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="spring-boot" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Spring Boot&#xa;Framework" vertex="1">
+          <mxGeometry height="60" width="180" x="80" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="spring-data" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Spring Data JPA" vertex="1">
+          <mxGeometry height="60" width="180" x="300" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="hibernate" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Hibernate ORM" vertex="1">
+          <mxGeometry height="60" width="180" x="520" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="h2-db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="H2 Database" vertex="1">
+          <mxGeometry height="60" width="180" x="740" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="validation" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Bean Validation" vertex="1">
+          <mxGeometry height="60" width="180" x="960" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="junit" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="JUnit + Mockito" vertex="1">
+          <mxGeometry height="60" width="180" x="1180" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="dep1" edge="1" parent="1" source="controller-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="service-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep1-label" connectable="0" parent="dep1" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="depends" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep2" edge="1" parent="1" source="service-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="repository-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep2-label" connectable="0" parent="dep2" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="depends" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep3" edge="1" parent="1" source="repository-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="model-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep3-label" connectable="0" parent="dep3" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="manages" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep4" edge="1" parent="1" source="controller-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="dto-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep4-label" connectable="0" parent="dep4" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="uses" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep5" edge="1" parent="1" source="service-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="mapper-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep5-label" connectable="0" parent="dep5" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="uses" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep6" edge="1" parent="1" source="mapper-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="model-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep7" edge="1" parent="1" source="mapper-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" target="dto-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep8" edge="1" parent="1" source="model-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;" target="enums-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep8-label" connectable="0" parent="dep8" style="edgeLabel;html=1;align=center;verticalAlign=middle;" value="uses" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep9" edge="1" parent="1" source="controller-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;" target="exception-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep10" edge="1" parent="1" source="service-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;" target="exception-pkg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext1" edge="1" parent="1" source="controller-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;strokeColor=#9673a6;" target="spring-boot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext2" edge="1" parent="1" source="repository-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;strokeColor=#9673a6;" target="spring-data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext3" edge="1" parent="1" source="repository-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;strokeColor=#9673a6;" target="hibernate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext4" edge="1" parent="1" source="repository-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;strokeColor=#9673a6;" target="h2-db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext5" edge="1" parent="1" source="dto-pkg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;strokeColor=#9673a6;" target="validation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" value="Arquitectura de Paquetes - Product API" vertex="1">
+          <mxGeometry height="40" width="400" x="600" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="notes" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=10;" value="NOTAS:&#xa;• Arquitectura en capas (Controller → Service → Repository → Database)&#xa;• Separación de responsabilidades clara&#xa;• DTO para comunicación externa&#xa;• Entity para persistencia&#xa;• Mapper para conversión entre capas&#xa;• Exception handling centralizado" vertex="1">
+          <mxGeometry height="200" width="240" x="1320" y="360" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

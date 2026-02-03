@@ -68,6 +68,11 @@ Desde la raíz del proyecto:
 - Ejecutar todas las pruebas:
   - mvn test
 
+## Documentacion 
+docs/diagrams
+Incluye los diagramas de clases, paquetes y secuencia para el API en formato drawio
+Se incluye las imagenes en formato PNG.
+
 Incluye:
 - Pruebas dinámicas con JSON en [src/test/java/com/hackerrank/sample/HttpJsonDynamicUnitTest.java](src/test/java/com/hackerrank/sample/HttpJsonDynamicUnitTest.java)
 - Casos de prueba en [src/test/resources/testcases](src/test/resources/testcases)
@@ -78,4 +83,5 @@ Incluye:
 ## Notas de buenas prácticas
 - Validación de entradas con Bean Validation.
 - Manejo centralizado de errores con RestControllerAdvice.
+- Documentacion de la arqutectura del API
 - Datos de prueba automáticos con scripts SQL.

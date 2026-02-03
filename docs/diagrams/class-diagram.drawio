@@ -1,0 +1,270 @@
+<mxfile host="65bd71144e">
+    <diagram id="class-diagram-detailed" name="Diagrama de Clases Detallado">
+        <mxGraphModel dx="1434" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <!-- Controller Layer -->
+                <mxCell id="controller" value="&lt;&lt;Controller&gt;&gt;&#xa;ProductController" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="300" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller-attr" value="- productService: ProductService" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;" parent="controller" vertex="1">
+                    <mxGeometry y="40" width="300" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="controller" vertex="1">
+                    <mxGeometry y="66" width="300" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller-methods" value="+ getAllProducts(): ResponseEntity&lt;List&lt;ProductDto&gt;&gt;&#xa;+ getProductById(Long): ResponseEntity&lt;ProductDto&gt;&#xa;+ getProductByTitle(String): ResponseEntity&lt;List&lt;ProductDto&gt;&gt;&#xa;+ getProductWithHigherValue(): ResponseEntity&lt;ProductDto&gt;&#xa;+ getProductsGroupCurrency(): ResponseEntity&lt;Map&gt;&#xa;+ createProduct(ProductDto): ResponseEntity&lt;ProductDto&gt;&#xa;+ updateProduct(Long, ProductDto): ResponseEntity&lt;ProductDto&gt;&#xa;+ deleteProductById(Long): ResponseEntity&lt;Void&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="controller" vertex="1">
+                    <mxGeometry y="74" width="300" height="146" as="geometry"/>
+                </mxCell>
+                
+                <!-- Service Interface -->
+                <mxCell id="service" value="&lt;&lt;Interface&gt;&gt;&#xa;ProductService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="40" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="service-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="service" vertex="1">
+                    <mxGeometry y="40" width="300" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="service-methods" value="+ getAllProducts(): List&lt;ProductDto&gt;&#xa;+ getProductById(Long): ProductDto&#xa;+ getProductByTitle(String): List&lt;ProductDto&gt;&#xa;+ getProductWithHigherValue(): ProductDto&#xa;+ getProductsGroupCurrency(): Map&lt;String, List&lt;ProductDto&gt;&gt;&#xa;+ createProduct(ProductDto): ProductDto&#xa;+ updateProduct(Long, ProductDto): ProductDto&#xa;+ deleteProductById(Long): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="service" vertex="1">
+                    <mxGeometry y="48" width="300" height="152" as="geometry"/>
+                </mxCell>
+                
+                <!-- Service Implementation -->
+                <mxCell id="serviceImpl" value="ProductServiceImpl" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="40" width="280" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="serviceImpl-attr" value="- modelRepository: ModelRepository&#xa;- productMapper: ProductMapper" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="serviceImpl" vertex="1">
+                    <mxGeometry y="26" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="serviceImpl-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="serviceImpl" vertex="1">
+                    <mxGeometry y="66" width="280" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="serviceImpl-methods" value="+ getAllProducts(): List&lt;ProductDto&gt;&#xa;+ getProductById(Long): ProductDto&#xa;+ getProductByTitle(String): List&lt;ProductDto&gt;&#xa;+ getProductWithHigherValue(): ProductDto&#xa;+ getProductsGroupCurrency(): Map&lt;...&gt;&#xa;+ createProduct(ProductDto): ProductDto&#xa;+ updateProduct(Long, ProductDto): ProductDto&#xa;+ deleteProductById(Long): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="serviceImpl" vertex="1">
+                    <mxGeometry y="74" width="280" height="106" as="geometry"/>
+                </mxCell>
+                
+                <!-- Repository -->
+                <mxCell id="repository" value="&lt;&lt;Interface&gt;&gt;&#xa;ModelRepository" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1160" y="40" width="340" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="repository-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="repository" vertex="1">
+                    <mxGeometry y="40" width="340" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="repository-methods" value="+ findById(Long): Optional&lt;Product&gt;&#xa;+ findAll(): List&lt;Product&gt;&#xa;+ findByTitleLikeIgnoreCase(String): List&lt;Product&gt;&#xa;+ save(Product): Product&#xa;+ deleteById(Long): void&#xa;extends JpaRepository&lt;Product, Long&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="repository" vertex="1">
+                    <mxGeometry y="48" width="340" height="92" as="geometry"/>
+                </mxCell>
+                
+                <!-- Product Entity -->
+                <mxCell id="product" value="&lt;&lt;Entity&gt;&gt;&#xa;Product" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="340" width="260" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="product-attr" value="- id: Long&#xa;- title: String&#xa;- price: float&#xa;- currencyId: CurrencyTypes&#xa;- availableQuantity: int&#xa;- condition: ProductContiditions&#xa;- freeShipping: boolean&#xa;- description: String&#xa;- pictureUrl: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="product" vertex="1">
+                    <mxGeometry y="40" width="260" height="146" as="geometry"/>
+                </mxCell>
+                <mxCell id="product-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="product" vertex="1">
+                    <mxGeometry y="186" width="260" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="product-methods" value="+ getters/setters&#xa;+ toString(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="product" vertex="1">
+                    <mxGeometry y="194" width="260" height="46" as="geometry"/>
+                </mxCell>
+                
+                <!-- ProductDto -->
+                <mxCell id="dto" value="ProductDto" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="340" width="260" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="dto-attr" value="- id: Long&#xa;- title: String (@NotBlank @Size)&#xa;- price: Float (@NotNull @Positive)&#xa;- currencyId: String (@Pattern)&#xa;- availableQuantity: Integer (@Min(0))&#xa;- condition: String (@Pattern)&#xa;- freeShipping: Boolean&#xa;- description: String (@NotBlank)&#xa;- pictureUrl: String (@NotBlank)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="dto" vertex="1">
+                    <mxGeometry y="26" width="260" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="dto-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="dto" vertex="1">
+                    <mxGeometry y="186" width="260" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="dto-methods" value="+ getters/setters&#xa;+ toString(): String&#xa;+ equals/hashCode" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="dto" vertex="1">
+                    <mxGeometry y="194" width="260" height="66" as="geometry"/>
+                </mxCell>
+                
+                <!-- ProductMapper -->
+                <mxCell id="mapper" value="ProductMapper" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="380" width="280" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="mapper-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="mapper" vertex="1">
+                    <mxGeometry y="26" width="280" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="mapper-methods" value="+ toProductDto(Product): ProductDto&#xa;+ toProduct(ProductDto): Product&#xa;+ toProductDtoList(List&lt;Product&gt;): List&lt;ProductDto&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="mapper" vertex="1">
+                    <mxGeometry y="34" width="280" height="66" as="geometry"/>
+                </mxCell>
+                
+                <!-- Enum CurrencyTypes -->
+                <mxCell id="enum-currency" value="&lt;&lt;Enum&gt;&gt;&#xa;CurrencyTypes" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="660" width="140" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="enum-currency-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="enum-currency" vertex="1">
+                    <mxGeometry y="40" width="140" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="enum-currency-values" value="COP&#xa;ARS&#xa;USD&#xa;EUR" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="enum-currency" vertex="1">
+                    <mxGeometry y="48" width="140" height="72" as="geometry"/>
+                </mxCell>
+                
+                <!-- Enum ProductConditions -->
+                <mxCell id="enum-condition" value="&lt;&lt;Enum&gt;&gt;&#xa;ProductContiditions" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="660" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="enum-condition-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="enum-condition" vertex="1">
+                    <mxGeometry y="40" width="160" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="enum-condition-values" value="NEW&#xa;USED" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="enum-condition" vertex="1">
+                    <mxGeometry y="48" width="160" height="52" as="geometry"/>
+                </mxCell>
+                
+                <!-- Exceptions -->
+                <mxCell id="exception1" value="NoSuchResourceFoundException" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="340" width="240" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="exception1-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="exception1" vertex="1">
+                    <mxGeometry y="26" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="exception1-methods" value="extends RuntimeException" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="exception1" vertex="1">
+                    <mxGeometry y="34" width="240" height="46" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="exception2" value="BadResourceRequestException" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="340" width="240" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="exception2-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="exception2" vertex="1">
+                    <mxGeometry y="26" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="exception2-methods" value="extends RuntimeException" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="exception2" vertex="1">
+                    <mxGeometry y="34" width="240" height="46" as="geometry"/>
+                </mxCell>
+                
+                <!-- GlobalExceptionHandler -->
+                <mxCell id="handler" value="@RestControllerAdvice&#xa;GlobalExceptionHandler" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="480" width="300" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="handler-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;" parent="handler" vertex="1">
+                    <mxGeometry y="40" width="300" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="handler-methods" value="+ handleValidationExceptions(...)&#xa;+ handleNoSuchResource(...)&#xa;+ handleInvalidJson(...)&#xa;+ handleGenericException(...)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="handler" vertex="1">
+                    <mxGeometry y="48" width="300" height="72" as="geometry"/>
+                </mxCell>
+                
+                <!-- Relationships -->
+                <mxCell id="rel1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;" parent="1" source="controller" target="service" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel1-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeWidth=2;" parent="1" source="serviceImpl" target="service" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel2-label" value="implements" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;" parent="1" source="serviceImpl" target="repository" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel3-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;" parent="1" source="serviceImpl" target="mapper" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel4-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;" parent="1" source="repository" target="product" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel5-label" value="manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel5" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" source="mapper" target="product" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel6-label" value="converts" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel6" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" source="mapper" target="dto" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel7-label" value="converts" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel7" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;" parent="1" source="product" target="enum-currency" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel8-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel8" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;" parent="1" source="product" target="enum-condition" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel9-label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel9" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;dashed=1;" parent="1" source="serviceImpl" target="exception1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel10-label" value="throws" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel10" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;" parent="1" source="handler" target="exception1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel11-label" value="handles" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel11" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="rel12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=1;" parent="1" source="handler" target="exception2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel12-label" value="handles" style="edgeLabel;html=1;align=center;verticalAlign=middle;" parent="rel12" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Legend -->
+                <mxCell id="legend" value="LEYENDA" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;startSize=26;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="660" width="200" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend-content" value="Verde = Controller&#xa;Azul = Service&#xa;Amarillo = Repository&#xa;Naranja = Entity&#xa;Morado = DTO&#xa;Gris = Mapper&#xa;Rojo = Enum/Exception" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;" parent="legend" vertex="1">
+                    <mxGeometry y="26" width="200" height="134" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

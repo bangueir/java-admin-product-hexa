@@ -1,0 +1,270 @@
+<mxfile host="65bd71144e">
+    <diagram id="sequence-diagram-detailed" name="Diagrama de Secuencia Detallado">
+        <mxGraphModel dx="1434" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <!-- Title -->
+                <mxCell id="title" value="Diagrama de Secuencia - GET /products (Obtener todos los productos)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="20" width="600" height="30" as="geometry"/>
+                </mxCell>
+                
+                <!-- Actors/Components -->
+                <mxCell id="client" value="Cliente&#xa;(HTTP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="controller" value="ProductController&#xa;@RestController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="80" width="160" height="60" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="service" value="ProductServiceImpl&#xa;@Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="80" width="160" height="60" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="mapper" value="ProductMapper&#xa;Utility" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="80" width="140" height="60" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="repository" value="ModelRepository&#xa;@Repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="80" width="160" height="60" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="database" value="H2 Database&#xa;In-Memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1180" y="80" width="140" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- Lifelines -->
+                <mxCell id="client-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="100" y="140" as="sourcePoint"/>
+                        <mxPoint x="100" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="controller-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="320" y="140" as="sourcePoint"/>
+                        <mxPoint x="320" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="service-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="560" y="140" as="sourcePoint"/>
+                        <mxPoint x="560" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="mapper-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="790" y="140" as="sourcePoint"/>
+                        <mxPoint x="790" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="repository-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1020" y="140" as="sourcePoint"/>
+                        <mxPoint x="1020" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <mxCell id="database-life" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1250" y="140" as="sourcePoint"/>
+                        <mxPoint x="1250" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Message 1: HTTP Request -->
+                <mxCell id="msg1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="100" y="180" as="sourcePoint"/>
+                        <mxPoint x="320" y="180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg1-label" value="1: GET /products" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Activation bar for controller -->
+                <mxCell id="act-controller" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="315" y="180" width="10" height="580" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 2: Call Service -->
+                <mxCell id="msg2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="325" y="220" as="sourcePoint"/>
+                        <mxPoint x="560" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg2-label" value="2: getAllProducts()" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Activation bar for service -->
+                <mxCell id="act-service" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="555" y="220" width="10" height="500" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 3: Call Repository -->
+                <mxCell id="msg3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="565" y="260" as="sourcePoint"/>
+                        <mxPoint x="1020" y="260" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg3-label" value="3: findAll()" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Activation bar for repository -->
+                <mxCell id="act-repository" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1015" y="260" width="10" height="200" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 4: SQL Query -->
+                <mxCell id="msg4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1025" y="300" as="sourcePoint"/>
+                        <mxPoint x="1250" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg4-label" value="4: SELECT * FROM MODEL" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Activation bar for database -->
+                <mxCell id="act-database" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="1245" y="300" width="10" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 5: Return Results -->
+                <mxCell id="msg5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1250" y="360" as="sourcePoint"/>
+                        <mxPoint x="1025" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg5-label" value="5: List&lt;Product&gt;" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg5" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Message 6: Return to Service -->
+                <mxCell id="msg6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1020" y="440" as="sourcePoint"/>
+                        <mxPoint x="565" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg6-label" value="6: List&lt;Product&gt; products" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg6" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Loop for mapping -->
+                <mxCell id="loop-frame" value="loop" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;arcSize=5;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="480" width="280" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="loop-condition" value="[for each product in products]" style="text;html=1;align=left;verticalAlign=top;spacingLeft=50;fontSize=10;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="545" y="485" width="200" height="20" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 7: Convert to DTO -->
+                <mxCell id="msg7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="565" y="530" as="sourcePoint"/>
+                        <mxPoint x="790" y="530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg7-label" value="7: toProductDto(product)" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg7" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Activation bar for mapper -->
+                <mxCell id="act-mapper" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="785" y="530" width="10" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- Message 8: Return DTO -->
+                <mxCell id="msg8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="790" y="590" as="sourcePoint"/>
+                        <mxPoint x="565" y="590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg8-label" value="8: ProductDto" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg8" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Message 9: Return DTO List to Controller -->
+                <mxCell id="msg9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="560" y="700" as="sourcePoint"/>
+                        <mxPoint x="325" y="700" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg9-label" value="9: List&lt;ProductDto&gt;" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg9" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Message 10: HTTP Response -->
+                <mxCell id="msg10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeWidth=2;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="320" y="740" as="sourcePoint"/>
+                        <mxPoint x="100" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg10-label" value="10: 200 OK&#xa;ResponseEntity&lt;List&lt;ProductDto&gt;&gt;&#xa;JSON Array" style="edgeLabel;html=1;align=center;verticalAlign=top;fontSize=11;fontStyle=1;" parent="msg10" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="-10" relative="1" as="geometry">
+                        <mxPoint x="-10" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- Alternative flow for empty result -->
+                <mxCell id="alt-frame" value="alt" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1;arcSize=5;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="800" width="300" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="alt-condition" value="[validation error or not found]" style="text;html=1;align=left;verticalAlign=top;spacingLeft=30;fontSize=10;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="285" y="805" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="alt-text" value="→ GlobalExceptionHandler&#xa;→ Return 400/404 with error message" style="text;html=1;align=left;verticalAlign=top;spacingLeft=10;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="830" width="280" height="40" as="geometry"/>
+                </mxCell>
+                
+                <!-- Legend -->
+                <mxCell id="legend" value="LEYENDA" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1380" y="80" width="240" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend-content" value="─────▶  Llamada síncrona&#xa;- - - - ▶  Respuesta/Retorno&#xa;&#xa;Flujo completo:&#xa;1. Cliente envía HTTP GET&#xa;2. Controller llama Service&#xa;3. Service llama Repository&#xa;4. Repository consulta DB&#xa;5-6. DB retorna entidades&#xa;7-8. Mapper convierte a DTOs&#xa;9. Service retorna DTOs&#xa;10. Controller retorna JSON&#xa;&#xa;Manejo de errores por&#xa;GlobalExceptionHandler" style="text;html=1;align=left;verticalAlign=top;spacingLeft=10;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1385" y="105" width="230" height="165" as="geometry"/>
+                </mxCell>
+                
+                <!-- Notes -->
+                <mxCell id="notes" value="NOTAS TÉCNICAS:&#xa;• JPA gestiona la conexión con H2&#xa;• Transacciones manejadas por Spring&#xa;• DTO valida con Bean Validation&#xa;• Exception handling centralizado&#xa;• ResponseEntity encapsula HTTP" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="1380" y="320" width="240" height="120" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
