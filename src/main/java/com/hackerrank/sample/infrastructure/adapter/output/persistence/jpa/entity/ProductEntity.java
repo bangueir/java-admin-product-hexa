@@ -1,47 +1,50 @@
-package com.hackerrank.sample.model;
-
-import com.hackerrank.sample.enums.CurrencyTypes;
-import com.hackerrank.sample.enums.ProductContiditions;
+package com.hackerrank.sample.infrastructure.adapter.output.persistence.jpa.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "products")
-public class Product {
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private float price;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CurrencyTypes currencyId = CurrencyTypes.COP;
+
+    @Column(nullable = false, length = 3)
+    private String currencyId;
+
     @Column(nullable = false)
     private int availableQuantity;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "product_condition", nullable = false)
-    private ProductContiditions condition = ProductContiditions.NEW;
+
+    @Column(name = "product_condition", nullable = false, length = 20)
+    private String condition;
+
     @Column(nullable = false)
     private boolean freeShipping;
-    @Column(nullable = true)
+
+    @Column(length = 1024)
     private String description;
-    @Column(nullable = true)
+
+    @Column(length = 1024)
     private String pictureUrl;
 
-    public Product() {
+    public ProductEntity() {
     }
 
-    public Product(Long id, String title, float price, CurrencyTypes currencyId, int availableQuantity,
-            ProductContiditions condition, boolean freeShipping, String description, String pictureUrl) {
+    public ProductEntity(Long id, String title, float price, String currencyId, 
+                        int availableQuantity, String condition, boolean freeShipping, 
+                        String description, String pictureUrl) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -77,11 +80,11 @@ public class Product {
         this.price = price;
     }
 
-    public CurrencyTypes getCurrencyId() {
+    public String getCurrencyId() {
         return currencyId;
     }
 
-    public void setCurrencyId(CurrencyTypes currencyId) {
+    public void setCurrencyId(String currencyId) {
         this.currencyId = currencyId;
     }
 
@@ -93,11 +96,11 @@ public class Product {
         this.availableQuantity = availableQuantity;
     }
 
-    public ProductContiditions getCondition() {
+    public String getCondition() {
         return condition;
     }
 
-    public void setCondition(ProductContiditions condition) {
+    public void setCondition(String condition) {
         this.condition = condition;
     }
 
@@ -124,6 +127,4 @@ public class Product {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
-    
-
 }

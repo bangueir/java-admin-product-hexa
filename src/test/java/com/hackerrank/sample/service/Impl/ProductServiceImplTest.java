@@ -19,45 +19,44 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.hackerrank.sample.dto.ProductDto;
-import com.hackerrank.sample.enums.CurrencyTypes;
-import com.hackerrank.sample.enums.ProductContiditions;
-import com.hackerrank.sample.exception.BadResourceRequestException;
-import com.hackerrank.sample.exception.NoSuchResourceFoundException;
-import com.hackerrank.sample.model.Product;
-import com.hackerrank.sample.repository.ProductRepository;
+import com.hackerrank.sample.application.port.output.persistence.ProductPersistencePort;
+import com.hackerrank.sample.application.service.ProductService;
+import com.hackerrank.sample.domain.exception.BadResourceRequestException;
+import com.hackerrank.sample.domain.exception.NoSuchResourceFoundException;
+import com.hackerrank.sample.domain.model.ProductDomain;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
 
 	@Mock
-	private ProductRepository productRepository;
+	private ProductPersistencePort productPersistencePort;
 
 	@InjectMocks
-	private ProductServiceImpl productService;
+	private ProductService productService;
+
 
 	@Test
 	public void deleteProductById_deletesWhenExists() {
-		when(productRepository.findById(1L)).thenReturn(Optional.of(sampleProduct(1L)));
-		doNothing().when(productRepository).deleteById(1L);
+		when(productPersistencePort.existsById(1L)).thenReturn(true);
+		doNothing().when(productPersistencePort).deleteById(1L);
 
-		productService.deleteProductById(1L);
+		productService.deleteProduct(1L);
 
-		verify(productRepository).deleteById(1L);
+		verify(productPersistencePort).deleteById(1L);
 	}
 
 	@Test
 	public void deleteProductById_throwsWhenNotFound() {
-		when(productRepository.findById(99L)).thenReturn(Optional.empty());
+		when(productPersistencePort.existsById(99L)).thenReturn(false);
 
 		try {
-			productService.deleteProductById(99L);
+			productService.deleteProduct(99L);
 			Assert.fail("Expected NoSuchResourceFoundException");
 		} catch (NoSuchResourceFoundException ex) {
 			assertEquals("No product with given id found.", ex.getMessage());
 		}
 
-		verify(productRepository, never()).deleteById(any());
+		verify(productPersistencePort, never()).deleteById(any());
 	}
 
 	@Test
@@ -72,31 +71,31 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void createProduct_savesAndReturnsDto() {
-		ProductDto input = sampleProductDto();
-		Product saved = sampleProduct(10L);
-		when(productRepository.save(any(Product.class))).thenReturn(saved);
+		ProductDomain input = sampleProductDomain();
+		ProductDomain saved = sampleProductDomain(10L);
+		when(productPersistencePort.save(any(ProductDomain.class))).thenReturn(saved);
 
-		ProductDto result = productService.createProduct(input);
+		ProductDomain result = productService.createProduct(input);
 
 		assertNotNull(result);
 		assertEquals(Long.valueOf(10L), result.getId());
 		assertEquals("Test Product", result.getTitle());
 		assertEquals(19.99f, result.getPrice(), 0.0001f);
 		assertEquals("USD", result.getCurrencyId());
-		assertEquals(Integer.valueOf(7), result.getAvailableQuantity());
+		assertEquals(7, result.getAvailableQuantity());
 		assertEquals("NEW", result.getCondition());
 		assertTrue(result.isFreeShipping());
 
-		ArgumentCaptor<Product> captor = ArgumentCaptor.forClass(Product.class);
-		verify(productRepository).save(captor.capture());
+		ArgumentCaptor<ProductDomain> captor = ArgumentCaptor.forClass(ProductDomain.class);
+		verify(productPersistencePort).save(captor.capture());
 		assertEquals("Test Product", captor.getValue().getTitle());
 	}
 
 	@Test
 	public void getProductById_returnsDtoWhenFound() {
-		when(productRepository.findById(1L)).thenReturn(Optional.of(sampleProduct(1L)));
+		when(productPersistencePort.findById(1L)).thenReturn(Optional.of(sampleProductDomain(1L)));
 
-		ProductDto result = productService.getProductById(1L);
+		ProductDomain result = productService.getProductById(1L);
 
 		assertNotNull(result);
 		assertEquals(Long.valueOf(1L), result.getId());
@@ -105,7 +104,7 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getProductById_throwsWhenNotFound() {
-		when(productRepository.findById(2L)).thenReturn(Optional.empty());
+		when(productPersistencePort.findById(2L)).thenReturn(Optional.empty());
 
 		try {
 			productService.getProductById(2L);
@@ -117,9 +116,9 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getAllProducts_returnsMappedDtos() {
-		when(productRepository.findAll()).thenReturn(List.of(sampleProduct(1L), sampleProduct(2L)));
+		when(productPersistencePort.findAll()).thenReturn(List.of(sampleProductDomain(1L), sampleProductDomain(2L)));
 
-		List<ProductDto> result = productService.getAllProducts();
+		List<ProductDomain> result = productService.getAllProducts();
 
 		assertEquals(2, result.size());
 		assertEquals(Long.valueOf(1L), result.get(0).getId());
@@ -128,10 +127,10 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getProductByTitle_returnsMappedList() {
-		when(productRepository.findByTitleLikeIgnoreCase("Laptop"))
-				.thenReturn(List.of(sampleProduct(1L), sampleProduct(2L)));
+		when(productPersistencePort.findByTitleLikeIgnoreCase("Laptop"))
+				.thenReturn(List.of(sampleProductDomain(1L), sampleProductDomain(2L)));
 
-		List<ProductDto> result = productService.getProductByTitle("Laptop");
+		List<ProductDomain> result = productService.searchByTitle("Laptop");
 
 		assertEquals(2, result.size());
 		assertEquals(Long.valueOf(1L), result.get(0).getId());
@@ -140,13 +139,13 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getProductWithHigherValue_returnsMax() {
-		Product low = sampleProduct(1L);
+		ProductDomain low = sampleProductDomain(1L);
 		low.setPrice(10.0f);
-		Product high = sampleProduct(2L);
+		ProductDomain high = sampleProductDomain(2L);
 		high.setPrice(99.0f);
-		when(productRepository.findAll()).thenReturn(List.of(low, high));
+		when(productPersistencePort.findAll()).thenReturn(List.of(low, high));
 
-		ProductDto result = productService.getProductWithHigherValue();
+		ProductDomain result = productService.getProductWithHigherValue();
 
 		assertNotNull(result);
 		assertEquals(Long.valueOf(2L), result.getId());
@@ -154,7 +153,7 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getProductWithHigherValue_throwsWhenEmpty() {
-		when(productRepository.findAll()).thenReturn(List.of());
+		when(productPersistencePort.findAll()).thenReturn(List.of());
 
 		try {
 			productService.getProductWithHigherValue();
@@ -166,15 +165,15 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void getProductsGroupCurrency_groupsByCurrency() {
-		Product usd = sampleProduct(1L);
-		usd.setCurrencyId(CurrencyTypes.USD);
-		Product cop = sampleProduct(2L);
-		cop.setCurrencyId(CurrencyTypes.COP);
-		Product usd2 = sampleProduct(3L);
-		usd2.setCurrencyId(CurrencyTypes.USD);
-		when(productRepository.findAll()).thenReturn(List.of(usd, cop, usd2));
+		ProductDomain usd = sampleProductDomain(1L);
+		usd.setCurrencyId("USD");
+		ProductDomain cop = sampleProductDomain(2L);
+		cop.setCurrencyId("COP");
+		ProductDomain usd2 = sampleProductDomain(3L);
+		usd2.setCurrencyId("USD");
+		when(productPersistencePort.findAll()).thenReturn(List.of(usd, cop, usd2));
 
-		var result = productService.getProductsGroupCurrency();
+		var result = productService.getProductsGroupedByCurrency();
 
 		assertEquals(2, result.size());
 		assertEquals(2, result.get("USD").size());
@@ -193,10 +192,10 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void updateProduct_throwsWhenNotFound() {
-		when(productRepository.findById(1L)).thenReturn(Optional.empty());
+		when(productPersistencePort.existsById(1L)).thenReturn(false);
 
 		try {
-			productService.updateProduct(1L, sampleProductDto());
+			productService.updateProduct(1L, sampleProductDomain());
 			Assert.fail("Expected NoSuchResourceFoundException");
 		} catch (NoSuchResourceFoundException ex) {
 			assertEquals("No product with given id found.", ex.getMessage());
@@ -205,40 +204,40 @@ public class ProductServiceImplTest {
 
 	@Test
 	public void updateProduct_updatesAndReturnsDto() {
-		when(productRepository.findById(1L)).thenReturn(Optional.of(sampleProduct(1L)));
-		when(productRepository.save(any(Product.class))).thenReturn(sampleProduct(1L));
+		when(productPersistencePort.existsById(1L)).thenReturn(true);
+		when(productPersistencePort.save(any(ProductDomain.class))).thenReturn(sampleProductDomain(1L));
 
-		ProductDto result = productService.updateProduct(1L, sampleProductDto());
+		ProductDomain result = productService.updateProduct(1L, sampleProductDomain());
 
 		assertNotNull(result);
 		assertEquals(Long.valueOf(1L), result.getId());
 		assertEquals("Test Product", result.getTitle());
 	}
 
-	private Product sampleProduct(Long id) {
-		Product product = new Product();
+	private ProductDomain sampleProductDomain(Long id) {
+		ProductDomain product = new ProductDomain();
 		product.setId(id);
 		product.setTitle("Test Product");
 		product.setPrice(19.99f);
-		product.setCurrencyId(CurrencyTypes.USD);
+		product.setCurrencyId("USD");
 		product.setAvailableQuantity(7);
-		product.setCondition(ProductContiditions.NEW);
+		product.setCondition("NEW");
 		product.setFreeShipping(true);
 		product.setDescription("Desc");
 		product.setPictureUrl("http://example.com/img.png");
 		return product;
 	}
 
-	private ProductDto sampleProductDto() {
-		ProductDto dto = new ProductDto();
-		dto.setTitle("Test Product");
-		dto.setPrice(19.99f);
-		dto.setCurrencyId("USD");
-		dto.setAvailableQuantity(7);
-		dto.setCondition("NEW");
-		dto.setFreeShipping(true);
-		dto.setDescription("Desc");
-		dto.setPictureUrl("http://example.com/img.png");
-		return dto;
+	private ProductDomain sampleProductDomain() {
+		ProductDomain domain = new ProductDomain();
+		domain.setTitle("Test Product");
+		domain.setPrice(19.99f);
+		domain.setCurrencyId("USD");
+		domain.setAvailableQuantity(7);
+		domain.setCondition("NEW");
+		domain.setFreeShipping(true);
+		domain.setDescription("Desc");
+		domain.setPictureUrl("http://example.com/img.png");
+		return domain;
 	}
 }

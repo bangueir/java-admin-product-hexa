@@ -1,4 +1,4 @@
-package com.hackerrank.sample.dto;
+package com.hackerrank.sample.infrastructure.adapter.input.rest.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public class ProductDto {
+public class ProductRestDto {
 
     private Long id;
 
@@ -22,7 +22,7 @@ public class ProductDto {
     @NotBlank(message = "Currency must not be null or blank")
     @Size(min = 3, max = 3, message = "Currency must be exactly 3 characters")
     @Pattern(regexp = "COP|ARS|USD|EUR", message = "Currency must be one of: COP, ARS, USD, EUR")
-    private String currencyId; 
+    private String currencyId;
 
     @NotNull(message = "Available quantity must not be null")
     @Min(value = 0, message = "Available quantity must not be negative")
@@ -31,7 +31,7 @@ public class ProductDto {
     @NotBlank(message = "Condition must not be null or blank")
     @Size(min = 3, max = 20, message = "Condition must be between 3 and 20 characters")
     @Pattern(regexp = "NEW|USED", message = "Condition must be one of: NEW, USED")
-    private String condition; 
+    private String condition;
 
     @NotNull(message = "Free shipping must not be null")
     private Boolean freeShipping;
@@ -44,11 +44,12 @@ public class ProductDto {
     @Size(min = 5, max = 500, message = "Picture URL must be between 5 and 500 characters")
     private String pictureUrl;
 
-    public ProductDto() {
+    public ProductRestDto() {
     }
 
-    public ProductDto(Long id, String title, Float price, String currencyId, Integer availableQuantity,
-            String condition, Boolean freeShipping, String description, String pictureUrl) {
+    public ProductRestDto(Long id, String title, Float price, String currencyId, 
+                          Integer availableQuantity, String condition, Boolean freeShipping, 
+                          String description, String pictureUrl) {
         this.id = id;
         this.title = title;
         this.price = price;
